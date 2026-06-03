@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  # Database Service
+  postgres-db:
+    image: postgres:15-alpine
+    container_name: fitness_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: fitness_user
+      POSTGRES_PASSWORD: fitness_secure_password
+      POSTGRES_DB: fitness_world
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # Node.js Application Service
+  api:
+    build: .
+    container_name: fitness_api
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://fitness_user:fitness_secure_password@postgres-db:5432/fitness_world?schema=public
+      - PORT=3000
+    depends_on:
+      - postgres-db
+
+volumes:
+  postgres_data:
