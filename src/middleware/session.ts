@@ -1,7 +1,7 @@
 // middleware/session.ts
 import { RequestHandler } from "express";
 import { $session } from "../service.ts/session";
-import { Admin } from "../generated/prisma/client";
+import { Admin } from "@prisma/client";
 
 // extend express Request type to include admin
 declare global {

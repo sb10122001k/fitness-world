@@ -5,8 +5,8 @@ import { Value } from "@sinclair/typebox/value";
 
 import { $jwt } from "./jwt";
 import { $prisma } from "./prisma";
-import { Admin } from "../generated/prisma/client";
 import { pickBy } from "lodash";
+import { Admin } from "@prisma/client";
 
 
 export type SessionToken = Static<typeof SessionTokenSchema>;
