@@ -58,7 +58,7 @@ export const FetchUserByIdRoute: Route = {
                                         properties: {
                                             id: { type: "string" },
                                             amount: { type: "number" },
-                                            gymExipriDate: { type: "string", format: "date-time" },
+                                            gymExpiryDate: { type: "string", format: "date-time" },
                                             userId: { type: "string" },
                                             createdAt: { type: "string", format: "date-time" },
                                         },
@@ -97,7 +97,7 @@ export const FetchUserByIdRoute: Route = {
                 include: {
                     paymentLogs: {
                         orderBy: {
-                            gymExipriDate: "desc",
+                            gymExpiryDate: "desc",
                         },
                     },
                 },

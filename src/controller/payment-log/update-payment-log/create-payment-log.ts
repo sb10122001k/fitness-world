@@ -36,10 +36,10 @@ export const UpdatePaymentLogRoute: Route = {
                 "application/json": {
                     schema: {
                         type: "object",
-                        required: ["amount", "gymExipriDate"],
+                        required: ["amount", "gymExpiryDate"],
                         properties: {
                             amount: { type: "number" },
-                            gymExipriDate: { type: "string", format: "date-time" },
+                            gymExpiryDate: { type: "string", format: "date-time" },
                         },
                     },
                 },
@@ -91,9 +91,9 @@ export const UpdatePaymentLogRoute: Route = {
         CAN_MANAGE_USER,
         asyncRoute(async (req, res) => {
             const { adminId, userId, paymentLogId } = req.params;
-            const { amount, gymExipriDate } = req.body;
+            const { amount, gymExpiryDate } = req.body;
 
-            if (!amount || !gymExipriDate) {
+            if (!amount || !gymExpiryDate) {
                 return res.status(400).json({
                     message: "Amount and gym expiry date are required",
                 });
@@ -131,7 +131,7 @@ export const UpdatePaymentLogRoute: Route = {
                 },
                 data: {
                     amount: amount as number,
-                    gymExipriDate: new Date(gymExipriDate as string),
+                    gymExpiryDate: new Date(gymExpiryDate as string),
                 },
             });
 

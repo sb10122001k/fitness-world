@@ -1,7 +1,7 @@
 import { User,PaymentLog } from "@prisma/client";
 
 export const fromPrismaUser = (user: User & { paymentLogs:PaymentLog[] }) => {
-   const expiryDate = user.paymentLogs.filter((log) => log.gymExipriDate > new Date()).map((log) => log.gymExipriDate).sort((a, b) => b.getTime() - a.getTime())[0];
+   const expiryDate = user.paymentLogs.filter((log) => log.gymExpiryDate > new Date()).map((log) => log.gymExpiryDate).sort((a, b) => b.getTime() - a.getTime())[0];
     return {
         id: user.id,
         name: user.name,
@@ -25,7 +25,7 @@ export const fromPrismaUserWithPaymentLogs = (user: User & { paymentLogs:Payment
         paymentLogs: user.paymentLogs.map((log) => ({
             id: log.id,
             amount: log.amount,
-            gymExipriDate: log.gymExipriDate.toISOString(),
+            gymExpiryDate: log.gymExpiryDate.toISOString(),
             createdAt: log.createdAt.toISOString(),
         })),
     };

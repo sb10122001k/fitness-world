@@ -54,7 +54,7 @@ export const FetchUserRoute: Route = {
                                             properties: {
                                                 id: { type: "string" },
                                                 amount: { type: "number" },
-                                                gymExipriDate: { type: "string", format: "date-time" },
+                                                gymExpiryDate: { type: "string", format: "date-time" },
                                                 userId: { type: "string" },
                                                 createdAt: { type: "string", format: "date-time" },
                                             },
@@ -93,11 +93,11 @@ export const FetchUserRoute: Route = {
                     SELECT *
                     FROM "PaymentLog" pl
                     WHERE pl."userId" = u.id
-                    ORDER BY pl."expiryDate" DESC
+                    ORDER BY pl."gymExpiryDate" DESC
                     LIMIT 1
                 ) pl ON true
                 WHERE u."adminId" = ${adminId}
-                ORDER BY pl."expiryDate" DESC NULLS LAST
+                ORDER BY pl."gymExpiryDate" DESC NULLS LAST
                 `;
 
             return res.status(200).json(users.map(fromPrismaUser));

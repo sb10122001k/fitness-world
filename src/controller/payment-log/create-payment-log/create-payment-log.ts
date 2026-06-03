@@ -54,9 +54,9 @@ export const CreatePaymentLogRoute: Route = {
     handler: [
     CAN_MANAGE_USER,
         asyncRoute(async (req, res) => {
-            const { amount, gymExipriDate } = req.body;
+            const { amount, gymExpiryDate } = req.body;
 
-            if (!amount || !gymExipriDate) {
+            if (!amount || !gymExpiryDate) {
                 return res.status(400).json({
                     message: "Amount and gym expiry date are required",
                 });
@@ -78,7 +78,7 @@ export const CreatePaymentLogRoute: Route = {
             await $prisma.paymentLog.create({
                 data: {
                     amount: amount as number,
-                    gymExipriDate: new Date(gymExipriDate as string),
+                    gymExpiryDate: new Date(gymExpiryDate as string),
                     userId: user.id,
                 },
             });
