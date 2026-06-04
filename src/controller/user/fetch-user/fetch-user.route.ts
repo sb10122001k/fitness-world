@@ -20,18 +20,6 @@ export const FetchUserRoute: Route = {
                 type: "string",
                 description: "ID of the admin",
             },
-            {
-                in: "query",
-                name: "limit",
-                schema: { type: "number" },
-                description: "Number of users to return",
-            },
-            {
-                in: "query",
-                name: "offset",
-                schema: { type: "number" },
-                description: "Number of users to skip",
-            },
         ],
         responses: {
             200: {
@@ -86,8 +74,8 @@ export const FetchUserRoute: Route = {
         asyncRoute(async (req, res) => {
             const { adminId } = req.params;
 
-            const users: (User & { paymentLogs: PaymentLog[] })[] = await $prisma.$queryRaw`
-                SELECT u.*, pl.*
+            const users: any[] = await $prisma.$queryRaw`
+                SELECT u.id as user_id,u.*, pl.*
                 FROM "User" u
                 LEFT JOIN LATERAL (
                     SELECT *
@@ -99,8 +87,19 @@ export const FetchUserRoute: Route = {
                 WHERE u."adminId" = ${adminId}
                 ORDER BY pl."gymExpiryDate" DESC NULLS LAST
                 `;
-
-            return res.status(200).json(users.map(fromPrismaUser));
+            return res.status(200).json({
+                users: users.map((user) => {
+                    return{
+                        id: user.user_id,
+                        name: user.name,
+                        phoneNumber: user.phoneNumber,
+                        address: user.address,
+                        adharNumber: user.adharNumber,
+                        avatarUrl: user.avatarUrl,
+                        expiryDate: user.gymExpiryDate ? new Date(user.gymExpiryDate).toISOString() : new Date(-1).toISOString(),
+                    }
+                }),
+            });
         }),
-    ],
+    ]
 };

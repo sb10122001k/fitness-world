@@ -15,14 +15,12 @@ declare global {
 export const SESSION_MIDDLEWARE: RequestHandler = async (req, res, next) => {
     try {
         const token = req.headers.authorization;
-        console.log("TOKEN:", token); 
 
         if (!token) {
             return next();
         }
 
         const admin = await $session.getUserFromToken(token);
-        console.log("ADMIN:", admin); 
         req.admin = admin;
 
         return next();

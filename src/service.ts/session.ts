@@ -65,7 +65,6 @@ const REQUEST_USER = "request_session";
 export const $session = {
     async getUserFromToken(token: string): Promise<Admin> {
         const session = $jwt.verify(token);
-    console.log("DECODED:", JSON.stringify(session)); // ← add this
 
         if (!Value.Check(SessionTokenSchema, session)) {
             throw Forbidden("invalid session token");
