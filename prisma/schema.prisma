@@ -48,6 +48,7 @@ model PaymentLog {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   gymExpiryDate DateTime
+  cardioAdded Boolean @default(false)
 
   user        User @relation(fields: [userId], references: [id])
 }

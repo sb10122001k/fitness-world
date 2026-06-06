@@ -54,7 +54,7 @@ export const CreatePaymentLogRoute: Route = {
     handler: [
     CAN_MANAGE_USER,
         asyncRoute(async (req, res) => {
-            const { amount, gymExpiryDate } = req.body;
+            const { amount, gymExpiryDate, cardioAdded } = req.body;
             if (!amount || !gymExpiryDate) {
                 return res.status(400).json({
                     message: "Amount and gym expiry date are required",
@@ -78,6 +78,7 @@ export const CreatePaymentLogRoute: Route = {
                 data: {
                     amount: amount as number,
                     gymExpiryDate: new Date(gymExpiryDate as string),
+                    cardioAdded: cardioAdded as boolean,
                     userId: user.id,
                 },
             });
