@@ -85,7 +85,7 @@ export const FetchUserRoute: Route = {
                     LIMIT 1
                 ) pl ON true
                 WHERE u."adminId" = ${adminId}
-                ORDER BY pl."gymExpiryDate" DESC NULLS LAST
+                ORDER BY pl."gymExpiryDate" NULLS FIRST
                 `;
             return res.status(200).json({
                 users: users.map((user) => {
